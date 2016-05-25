@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("theCityName", "杭州");
+                hashMap.put("byProvinceName", "浙江");
                 new WsReqs("http://WebXml.com.cn/"
                         , "http://www.webxml.com.cn/WebServices/WeatherWebService.asmx"
-                        , "getWeatherbyCityName"
+                        , "getSupportCity"
                         , hashMap
                         , String.class
                         , new WsIt() {
