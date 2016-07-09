@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/webservice/webservice.iml" filepath="$PROJECT_DIR$/webservice/webservice.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wsDemo.iml" filepath="$PROJECT_DIR$/wsDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wsdemo.iml" filepath="$PROJECT_DIR$/wsdemo.iml" />
     </modules>
   </component>
 </project>
