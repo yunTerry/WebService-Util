@@ -14,7 +14,7 @@ allprojects {
 ```
 ##### step 2
 ```gradle
-compile 'com.github.yunTerry:ws-util:2.0.0'
+compile 'com.github.yunTerry:WebService-Util:2.0.0'
 ```
 
 ###Call the webservice
