@@ -18,31 +18,27 @@ allprojects {
 ```
 ##### step 2
 ```gradle
-compile 'com.github.yunTerry:WebService-Util:2.0.0'
+compile 'com.github.yunTerry:WebService-Util:3.0.0'
 ```
 
 ### Call the webservice
 
 ```java
 
+WebService.init("url", "namespace", backClass);
+
 HashMap<String, Object> hashMap = new HashMap<>();
 hashMap.put("byProvinceName", "浙江");
-// call WebService
-new WsReqs("http://WebXml.com.cn/"  //name_space
-        , "http://www.webxml.com.cn/WebServices/WeatherWebService.asmx"  //url
-        , "getSupportCity"  //method
-        , hashMap     //Parameter set
-        , String.class  //callback type
-        , new WsIt() {
 
+WebService.request("getSupportCity", hashMap, new WebServiceLisener() {
     @Override
-    public void onSucces(String method, Object result) {
-        wstv.setText(result.toString());
+    public void onSuccess(String method, Object result) {
+
     }
 
     @Override
-    public void onFailed(Object msg) {
-        wstv.setText(msg.toString());
+    public void onFail(Object msg) {
+
     }
 });
 
