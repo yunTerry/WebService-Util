@@ -1,6 +1,6 @@
 # WebService-Util
 
-## An Android library to help you call webservice very easily
+### An Android library to help you call webservice very easily, based on [KSoap 2](http://kobjects.org/ksoap2/index.html)
 
 <img src="pic/1.png" width = "300" />
 <img src="pic/2.png" width = "300" />
@@ -24,6 +24,7 @@ compile 'com.github.yunTerry:WebService-Util:2.0.0'
 ### Call the webservice
 
 ```java
+
 HashMap<String, Object> hashMap = new HashMap<>();
 hashMap.put("byProvinceName", "浙江");
 // call WebService
@@ -33,7 +34,7 @@ new WsReqs("http://WebXml.com.cn/"  //name_space
         , hashMap     //Parameter set
         , String.class  //callback type
         , new WsIt() {
-        
+
     @Override
     public void onSucces(String method, Object result) {
         wstv.setText(result.toString());
@@ -44,6 +45,7 @@ new WsReqs("http://WebXml.com.cn/"  //name_space
         wstv.setText(msg.toString());
     }
 });
+
 ```
 ### Used in demo
 

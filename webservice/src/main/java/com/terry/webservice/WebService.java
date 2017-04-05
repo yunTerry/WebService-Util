@@ -2,7 +2,6 @@ package com.terry.webservice;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -20,27 +19,37 @@ import java.util.Set;
 import java.util.Vector;
 
 /***
- * 名称：		WsReqs
+ * 名称：		WebService
  * 作者：		Terry Tan
- * 创建时间：	2016-1-20
+ * 创建时间：	    2016-1-20
  * 说明：
  **/
-public class WsReqs {
+public class WebService {
 
-    public <T> WsReqs(final String namespace
-            , final String serviceURL
-            , final String methodName
-            , final HashMap<String, Object> hashMap
-            , final Class<T> resultType
-            , final WsIt delegate) {
+    private static String url = "";
+    private static String namespace = "";
+    private static Class backtype = String.class;
+
+    public static void init(String ws_url, String ws_namespace) {
+        url = ws_url;
+        namespace = ws_namespace;
+    }
+
+    public static void init(String ws_url, String ws_namespace, Class ws_backtype) {
+        url = ws_url;
+        namespace = ws_namespace;
+        backtype = ws_backtype;
+    }
+
+    public static void request(final String method, final HashMap<String, Object> hashMap, final WebServiceLisener lisener) {
 
         new AsyncTask<Void, Void, Object>() {
 
             @Override
             protected Object doInBackground(Void... arg0) {
                 // TODO Auto-generated method stub
-                return call(namespace, serviceURL, methodName
-                        , hashMap, delegate, resultType);
+                return call(namespace, url, method
+                        , hashMap, lisener, backtype);
             }
 
             @Override
@@ -48,9 +57,9 @@ public class WsReqs {
                 // TODO Auto-generated method stub
                 super.onPostExecute(result);
                 if (result instanceof Exception)
-                    delegate.onFailed(result);
+                    lisener.onFail(result);
                 else
-                    delegate.onSucces(methodName, result);
+                    lisener.onSuccess(method, result);
             }
 
         }.execute();
@@ -92,9 +101,9 @@ public class WsReqs {
         return object;
     }
 
-    private <T> Object call(String namespace, String serviceURL
+    private static <T> Object call(String namespace, String serviceURL
             , String methodName, HashMap<String, Object> hmap,
-                            WsIt delegate, Class<T> resultType) {
+                                   WebServiceLisener delegate, Class<T> resultType) {
 
         Object object = null;
 
@@ -125,7 +134,7 @@ public class WsReqs {
             if (retObj instanceof SoapFault) {
                 SoapFault fault = (SoapFault) retObj;
                 Exception ex = new Exception(fault.faultstring);
-                delegate.onFailed(ex);
+                delegate.onFail(ex);
             } else if (retObj instanceof SoapPrimitive) {
                 SoapPrimitive soapPrimitive = (SoapPrimitive) retObj;
                 object = unmarshalSoapPimitiveResponse(retObj, resultType);
